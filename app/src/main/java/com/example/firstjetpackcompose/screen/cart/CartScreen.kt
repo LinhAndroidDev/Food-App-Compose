@@ -125,7 +125,7 @@ fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
         }
 
         Text(
-            "Checkout . $${totalPrice + delivery}",
+            "Checkout • $${totalPrice + delivery}",
             fontSize = 16.sp,
             color = Color.White,
             modifier = Modifier

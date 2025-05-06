@@ -169,20 +169,34 @@ fun ListSeller(navController: NavController, shareViewModel: ShareViewModel) {
         ),
     )
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
+    Column(
         modifier = Modifier
-            .padding(start = 15.dp)
-            .height(700.dp),
-        userScrollEnabled = false
+            .padding(start = 15.dp, bottom = 120.dp)
     ) {
-        items(count = sellers.size) { index ->
-            ItemSellerView(sellers[index], onClick = {
-                shareViewModel.setSelectedFood(sellers[index].convertToDetailFoodModel())
-                navController.navigate("detail_food")
-            })
-        }
+        // Chia danh sách thành các nhóm 2 phần tử
+        sellers.chunked(2).forEach { rowItems ->
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                rowItems.forEach { seller ->
+                    Box(
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(4.dp)
+                    ) {
+                        ItemSellerView(seller, onClick = {
+                            shareViewModel.setSelectedFood(seller.convertToDetailFoodModel())
+                            navController.navigate("detail_food")
+                        })
+                    }
+                }
 
+                // Nếu hàng chỉ có 1 item, thêm 1 khoảng trống để lấp chỗ
+                if (rowItems.size < 2) {
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+            }
+        }
     }
 }
 
