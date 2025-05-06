@@ -2,6 +2,10 @@
 
 A modern food delivery application built with Jetpack Compose, following Material Design 3 guidelines.
 
+## App Screenshots
+1. Home Screen
+   <img src="https://github.com/user-attachments/assets/1952c993-4ae5-41d8-83dd-19f35d4a294f" width="300" />
+
 ## Features
 
 - **Bottom Navigation**: Easy navigation between different sections of the app
