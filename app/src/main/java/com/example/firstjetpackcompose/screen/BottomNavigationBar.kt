@@ -39,10 +39,23 @@ enum class BottomNavigationItem(
     STORE(R.drawable.ic_store, R.drawable.ic_store_fill, "Store"),
     EXTENSION(R.drawable.ic_extension, R.drawable.ic_extension_fill, "Extension"),
     PROFILE(R.drawable.ic_profile, R.drawable.ic_profile_fill, "Profile");
+
+    companion object {
+        fun isScreenBottomNavigation(route: String): Boolean {
+            return route == HOME.label ||
+                    route == FAVOURITE.label ||
+                    route == STORE.label ||
+                    route == EXTENSION.label ||
+                    route == PROFILE.label
+        }
+    }
 }
 
 @Composable
-fun BottomNavigationBar(onClick: (BottomNavigationItem) -> Unit = {}, itemSelected: BottomNavigationItem = BottomNavigationItem.HOME) {
+fun BottomNavigationBar(
+    onClick: (BottomNavigationItem) -> Unit = {},
+    itemSelected: BottomNavigationItem = BottomNavigationItem.HOME
+) {
     BottomAppBar(
         actions = {
             Box {
@@ -65,7 +78,10 @@ fun BottomNavigationBar(onClick: (BottomNavigationItem) -> Unit = {}, itemSelect
                                 color = Color.White,
                                 shape = RoundedCornerShape(50.dp)
                             )
-                            .background(color = if (itemSelected == BottomNavigationItem.HOME) Green else BackGroundCommon, shape = RoundedCornerShape(50.dp))
+                            .background(
+                                color = if (itemSelected == BottomNavigationItem.HOME) Green else BackGroundCommon,
+                                shape = RoundedCornerShape(50.dp)
+                            )
                             .padding(start = 25.dp, end = 30.dp, top = 17.dp, bottom = 17.dp)
                             .clickable {
                                 onClick.invoke(BottomNavigationItem.HOME)

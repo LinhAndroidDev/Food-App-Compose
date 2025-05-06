@@ -1,6 +1,7 @@
 package com.example.firstjetpackcompose.screen.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,12 +27,13 @@ import com.example.firstjetpackcompose.screen.home.models.SellerModel
 import com.example.firstjetpackcompose.ui.theme.Green
 
 @Composable
-fun ItemSellerView(sellerModel: SellerModel) {
+fun ItemSellerView(sellerModel: SellerModel, onClick: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .padding(end = 15.dp, bottom = 15.dp)
             .background(color = Color.White, shape = RoundedCornerShape(15.dp))
-            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(10.dp)
+            .clickable { onClick.invoke() }, horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = sellerModel.name,
@@ -67,7 +69,7 @@ fun ItemSellerView(sellerModel: SellerModel) {
                     modifier = Modifier.size(17.dp),
                     tint = Color.Gray,
 
-                )
+                    )
                 Text(text = " ${sellerModel.time} min", fontSize = 12.sp, color = Color.Gray)
             }
             Spacer(modifier = Modifier.weight(1f))

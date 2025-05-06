@@ -28,10 +28,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.firstjetpackcompose.screen.home.models.FoodModel
 import com.example.firstjetpackcompose.IconTop
@@ -40,9 +42,10 @@ import com.example.firstjetpackcompose.screen.home.models.SellerModel
 import com.example.firstjetpackcompose.ui.theme.BackGroundCommon
 import com.example.firstjetpackcompose.ui.theme.FirstJetpackComposeTheme
 import com.example.firstjetpackcompose.ui.theme.Green
+import com.example.firstjetpackcompose.viewmodel.ShareViewModel
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController, shareViewModel: ShareViewModel) {
     val items = listOf(
         FoodModel(R.drawable.ic_meat, "Meat"),
         FoodModel(R.drawable.ic_fast_food, "Fast Food"),
@@ -129,12 +132,12 @@ fun HomeScreen() {
 
         Spacer(modifier = Modifier.size(20.dp))
 
-        ListSeller()
+        ListSeller(navController, shareViewModel)
     }
 }
 
 @Composable
-fun ListSeller() {
+fun ListSeller(navController: NavController, shareViewModel: ShareViewModel) {
     val sellers = listOf(
         SellerModel(
             name = "Melting Cheese Pizza",
@@ -174,7 +177,10 @@ fun ListSeller() {
         userScrollEnabled = false
     ) {
         items(count = sellers.size) { index ->
-            ItemSellerView(sellers[index])
+            ItemSellerView(sellers[index], onClick = {
+                shareViewModel.setSelectedFood(sellers[index].convertToDetailFoodModel())
+                navController.navigate("detail_food")
+            })
         }
 
     }
@@ -184,6 +190,9 @@ fun ListSeller() {
 @Composable
 fun MainScreenPreview() {
     FirstJetpackComposeTheme {
-        HomeScreen()
+        HomeScreen(
+            navController = NavController(context = LocalContext.current),
+            shareViewModel = ShareViewModel()
+        )
     }
 }

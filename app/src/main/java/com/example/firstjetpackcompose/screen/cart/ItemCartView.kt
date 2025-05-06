@@ -1,6 +1,7 @@
 package com.example.firstjetpackcompose.screen.cart
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -26,13 +27,14 @@ import com.example.firstjetpackcompose.screen.cart.models.CartModel
 import com.example.firstjetpackcompose.ui.theme.Green
 
 @Composable
-fun ItemCartView(cartModel: CartModel) {
+fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 15.dp, end = 15.dp, bottom = 15.dp)
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
-            .padding(15.dp), verticalAlignment = Alignment.CenterVertically
+            .padding(15.dp)
+            .clickable { onClick.invoke(cartModel) }, verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
             model = cartModel.image,
@@ -53,7 +55,7 @@ fun ItemCartView(cartModel: CartModel) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = "$${cartModel.price}",
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     color = Color.Black,
                     fontWeight = FontWeight.W500
                 )

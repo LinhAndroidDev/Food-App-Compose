@@ -21,18 +21,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.firstjetpackcompose.IconTop
 import com.example.firstjetpackcompose.screen.cart.models.CartModel
 import com.example.firstjetpackcompose.ui.theme.BackGroundCommon
 import com.example.firstjetpackcompose.ui.theme.Green
+import com.example.firstjetpackcompose.viewmodel.ShareViewModel
 
 @Composable
-fun CartScreen() {
+fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
     val carts = listOf(
         CartModel(
             "Fried Sausage Pizza House",
@@ -52,7 +55,7 @@ fun CartScreen() {
             "Delicious Mixed Rice Paper",
             "Mixed Rice Paper",
             8.0f,
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPX98dyyTnLS5PntvO2kqBRQB2v2dMb7fsRg&s",
+            "https://banhtrangdom.com/wp-content/uploads/2023/06/tron-top-mo.png",
             3
         ),
         CartModel(
@@ -107,7 +110,10 @@ fun CartScreen() {
 
             Column {
                 carts.forEach { cart ->
-                    ItemCartView(cartModel = cart)
+                    ItemCartView(cartModel = cart, onClick = { cartModel ->
+                        shareViewModel.setSelectedFood(cartModel.convertToDetailFoodModel())
+                        navController.navigate("detail_food")
+                    })
                 }
             }
 
@@ -126,7 +132,8 @@ fun CartScreen() {
                 .padding(start = 15.dp, end = 15.dp, bottom = 120.dp)
                 .fillMaxWidth()
                 .background(color = Green, shape = RoundedCornerShape(50.dp))
-                .padding(vertical = 15.dp).align(Alignment.BottomCenter),
+                .padding(vertical = 15.dp)
+                .align(Alignment.BottomCenter),
             textAlign = TextAlign.Center
         )
     }
@@ -135,5 +142,8 @@ fun CartScreen() {
 @Preview
 @Composable
 fun CartScreenPreview() {
-    CartScreen()
+    CartScreen(
+        navController = NavController(LocalContext.current),
+        shareViewModel = ShareViewModel()
+    )
 }

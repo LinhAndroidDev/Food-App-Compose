@@ -17,7 +17,7 @@ fun IconTop(image: ImageVector, onClick: () -> Unit) {
     Icon(
         imageVector = image,
         contentDescription = "",
-        tint = Color.Gray,
+        tint = Color(0xFF505050),
         modifier = Modifier
             .size(45.dp)
             .background(
