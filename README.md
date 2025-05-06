@@ -4,7 +4,12 @@ A modern food delivery application built with Jetpack Compose, following Materia
 
 ## App Screenshots
 1. Home Screen
+   
    <img src="https://github.com/user-attachments/assets/1952c993-4ae5-41d8-83dd-19f35d4a294f" width="300" />
+
+2. Cart Screen
+
+   <img src="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c" width="300" />
 
 ## Features
 
