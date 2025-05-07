@@ -126,7 +126,7 @@ fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
                 .background(color = Green, shape = RoundedCornerShape(50.dp))
                 .clip(shape = RoundedCornerShape(50.dp))
                 .clickable {
-
+                    navController.navigate("tracking")
                 }
                 .padding(vertical = 15.dp)
                 .align(Alignment.BottomCenter),

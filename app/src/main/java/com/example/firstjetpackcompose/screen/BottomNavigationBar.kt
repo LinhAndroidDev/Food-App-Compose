@@ -48,6 +48,17 @@ enum class BottomNavigationItem(
                     route == EXTENSION.label ||
                     route == PROFILE.label
         }
+
+        fun of(route: String): BottomNavigationItem {
+            return when (route) {
+                HOME.label -> HOME
+                FAVOURITE.label -> FAVOURITE
+                STORE.label -> STORE
+                EXTENSION.label -> EXTENSION
+                PROFILE.label -> PROFILE
+                else -> HOME
+            }
+        }
     }
 }
 

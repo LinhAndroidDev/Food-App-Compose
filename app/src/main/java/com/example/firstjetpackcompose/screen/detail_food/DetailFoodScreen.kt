@@ -226,7 +226,7 @@ private fun FooterAddToCart(navController: NavController, foodDetail: DetailFood
                 .weight(1f)
                 .clip(shape = RoundedCornerShape(50.dp))
                 .clickable {
-                    navController.navigate("tracking")
+
                 }
                 .padding(vertical = 15.dp, horizontal = 20.dp),
             textAlign = TextAlign.Center

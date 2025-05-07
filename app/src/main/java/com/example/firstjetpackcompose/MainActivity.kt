@@ -8,9 +8,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -36,9 +33,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             val sharedViewModel: ShareViewModel = viewModel()
-            var itemSelected by remember {
-                mutableStateOf(BottomNavigationItem.HOME)
-            }
             FirstJetpackComposeTheme {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -47,15 +41,14 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         if (BottomNavigationItem.isScreenBottomNavigation(screenRoute)) {
                             BottomNavigationBar(onClick = {
-                                itemSelected = it
-                                navController.navigate(itemSelected.label) {
+                                navController.navigate(it.label) {
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }
                                     launchSingleTop = true
                                     restoreState = true
                                 }
-                            }, itemSelected = itemSelected)
+                            }, itemSelected = BottomNavigationItem.of(screenRoute))
                         } else {
                             Spacer(modifier = Modifier.fillMaxWidth())
                         }
