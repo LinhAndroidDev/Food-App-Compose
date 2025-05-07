@@ -9,7 +9,16 @@ A modern food delivery application built with Jetpack Compose, following Materia
 
 2. Cart Screen
 
-   <img src="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c" width="300" alt="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c"/>
+   <img src="https://github.com/user-attachments/assets/d23e0cc1-c3bb-4411-9cce-e12c953e93a5" width="300" alt="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c"/>
+   <img src="https://github.com/user-attachments/assets/21e70952-0a28-4250-8c10-72a916077cb6" width="300" alt="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c"/>
+
+3. Detail Screen
+   
+   <img src="https://github.com/user-attachments/assets/ec5e5209-fe70-4fc9-9d43-8e5a566234cb" width="300" alt="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c"/>
+
+4. Tracking Screen
+   
+   <img src="https://github.com/user-attachments/assets/e7141e10-9be7-410f-8af0-22024a077ad2" width="300" alt="https://github.com/user-attachments/assets/b6659f03-0689-4d3f-8020-5e3599da419c"/>
 
 ## Features
 
