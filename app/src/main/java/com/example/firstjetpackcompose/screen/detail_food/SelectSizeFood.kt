@@ -16,10 +16,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.firstjetpackcompose.screen.common.RadioCommon
 import com.example.firstjetpackcompose.ui.theme.Gray
 import com.example.firstjetpackcompose.ui.theme.Green
 
@@ -34,7 +36,9 @@ fun SelectSizeFood(
     typeSize: SizeFood,
     onClick: (SizeFood) -> Unit
 ) {
-    Row(modifier = Modifier.padding(top = 30.dp).fillMaxWidth()) {
+    Row(modifier = Modifier
+        .padding(top = 30.dp)
+        .fillMaxWidth()) {
         Spacer(modifier = Modifier.size(15.dp))
         Column(modifier = Modifier.weight(1f)) {
             ItemSizeFoodView(
@@ -69,18 +73,21 @@ fun ItemSizeFoodView(selected: Boolean = false, typeSize: SizeFood, onClick: () 
         modifier = Modifier
             .fillMaxWidth()
             .background(color = Color.White, shape = RoundedCornerShape(15.dp))
-            .border(width = 1.dp, color = if (selected) Green else Color.White, shape = RoundedCornerShape(15.dp))
+            .border(
+                width = 1.dp,
+                color = if (selected) Green else Color.White,
+                shape = RoundedCornerShape(15.dp)
+            )
+            .clip(shape = RoundedCornerShape(15.dp))
             .clickable { onClick.invoke() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        RadioButton(
+        Spacer(modifier = Modifier.size(10.dp))
+        RadioCommon(
             selected = selected,
-            onClick = { onClick.invoke() },
-            colors = RadioButtonDefaults.colors(
-                selectedColor = Green,
-                unselectedColor = Gray,
-            )
+            onClick = { onClick.invoke() }
         )
+        Spacer(modifier = Modifier.size(10.dp))
         Text(text = typeSize.size, fontSize = 12.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(5.dp))
         Text(

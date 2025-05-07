@@ -15,11 +15,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -82,10 +82,11 @@ fun BottomNavigationBar(
                                 color = if (itemSelected == BottomNavigationItem.HOME) Green else BackGroundCommon,
                                 shape = RoundedCornerShape(50.dp)
                             )
-                            .padding(start = 25.dp, end = 30.dp, top = 17.dp, bottom = 17.dp)
+                            .clip(shape = RoundedCornerShape(50.dp))
                             .clickable {
                                 onClick.invoke(BottomNavigationItem.HOME)
-                            },
+                            }
+                            .padding(start = 25.dp, end = 30.dp, top = 17.dp, bottom = 17.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
@@ -125,18 +126,17 @@ fun BottomNavigationBar(
 
 @Composable
 fun IconBottomNavigation(resourceId: Int, selected: Boolean = false, onClick: () -> Unit) {
-    IconButton(
-        onClick = { onClick.invoke() }, modifier = Modifier
+    Icon(
+        painter = painterResource(id = resourceId),
+        contentDescription = "",
+        tint = if (selected) Color.White else Color.Gray,
+        modifier = Modifier
             .border(width = 4.dp, color = Color.White, shape = CircleShape)
             .background(color = if (selected) Green else BackGroundCommon, shape = CircleShape)
-            .padding(5.dp)
-    ) {
-        Icon(
-            painter = painterResource(id = resourceId),
-            contentDescription = "",
-            tint = if (selected) Color.White else Color.Gray
-        )
-    }
+            .clip(shape = CircleShape)
+            .clickable { onClick.invoke() }
+            .padding(17.dp)
+    )
 }
 
 @Preview

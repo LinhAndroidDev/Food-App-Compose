@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,8 +34,9 @@ fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit, onAdd: (Int
             .fillMaxWidth()
             .padding(start = 15.dp, end = 15.dp, bottom = 15.dp)
             .background(color = Color.White, shape = RoundedCornerShape(20.dp))
-            .padding(15.dp)
-            .clickable { onClick.invoke(cartModel) }, verticalAlignment = Alignment.CenterVertically
+            .clip(RoundedCornerShape(20.dp))
+            .clickable { onClick.invoke(cartModel) }
+            .padding(15.dp), verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
             model = cartModel.image,
@@ -68,12 +70,13 @@ fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit, onAdd: (Int
                         .padding(end = 10.dp)
                         .size(25.dp)
                         .background(color = Green, shape = RoundedCornerShape(5.dp))
-                        .padding(2.dp)
+                        .clip(shape = RoundedCornerShape(5.dp))
                         .clickable {
                             if (cartModel.quantity > 1) {
                                 onMinus.invoke(cartModel.quantity - 1)
                             }
                         }
+                        .padding(2.dp)
                 )
                 Text(
                     text = "${cartModel.quantity}",
@@ -89,10 +92,11 @@ fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit, onAdd: (Int
                         .padding(start = 10.dp)
                         .size(25.dp)
                         .background(color = Green, shape = RoundedCornerShape(5.dp))
-                        .padding(2.dp)
+                        .clip(shape = RoundedCornerShape(5.dp))
                         .clickable {
                             onAdd.invoke(cartModel.quantity + 1)
                         }
+                        .padding(2.dp)
                 )
             }
         }

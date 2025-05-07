@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.firstjetpackcompose.screen.home.models.FoodModel
-import com.example.firstjetpackcompose.IconTop
+import com.example.firstjetpackcompose.screen.common.IconTop
 import com.example.firstjetpackcompose.R
 import com.example.firstjetpackcompose.screen.home.models.SellerModel
 import com.example.firstjetpackcompose.ui.theme.BackGroundCommon

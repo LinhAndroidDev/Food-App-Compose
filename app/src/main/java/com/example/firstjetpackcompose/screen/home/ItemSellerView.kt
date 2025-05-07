@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,8 +33,9 @@ fun ItemSellerView(sellerModel: SellerModel, onClick: () -> Unit = {}) {
         modifier = Modifier
             .padding(end = 15.dp, bottom = 15.dp)
             .background(color = Color.White, shape = RoundedCornerShape(15.dp))
-            .padding(10.dp)
-            .clickable { onClick.invoke() }, horizontalAlignment = Alignment.CenterHorizontally
+            .clip(RoundedCornerShape(15.dp))
+            .clickable { onClick.invoke() }
+            .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = sellerModel.name,

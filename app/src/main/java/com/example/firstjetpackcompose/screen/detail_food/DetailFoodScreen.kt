@@ -2,6 +2,7 @@ package com.example.firstjetpackcompose.screen.detail_food
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -27,6 +28,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -36,7 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.firstjetpackcompose.IconTop
+import com.example.firstjetpackcompose.screen.common.IconTop
 import com.example.firstjetpackcompose.R
 import com.example.firstjetpackcompose.screen.detail_food.models.DetailFoodModel
 import com.example.firstjetpackcompose.screen.detail_food.models.IngredientModel
@@ -97,7 +99,7 @@ fun DetailFoodScreen(navController: NavController, shareViewModel: ShareViewMode
         }
 
         Column(modifier = Modifier.align(Alignment.BottomCenter)) {
-            FooterAddToCart(foodDetail = foodDetail)
+            FooterAddToCart(navController = navController, foodDetail = foodDetail)
         }
     }
 }
@@ -198,7 +200,7 @@ private fun ListIngredient() {
 }
 
 @Composable
-private fun FooterAddToCart(foodDetail: DetailFoodModel?) {
+private fun FooterAddToCart(navController: NavController, foodDetail: DetailFoodModel?) {
     Row(
         modifier = Modifier
             .padding(start = 15.dp, end = 15.dp, bottom = 60.dp)
@@ -222,6 +224,10 @@ private fun FooterAddToCart(foodDetail: DetailFoodModel?) {
                 .padding(start = 10.dp)
                 .background(color = Green, shape = RoundedCornerShape(50.dp))
                 .weight(1f)
+                .clip(shape = RoundedCornerShape(50.dp))
+                .clickable {
+                    navController.navigate("tracking")
+                }
                 .padding(vertical = 15.dp, horizontal = 20.dp),
             textAlign = TextAlign.Center
         )

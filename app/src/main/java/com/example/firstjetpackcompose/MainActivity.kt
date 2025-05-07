@@ -25,6 +25,7 @@ import com.example.firstjetpackcompose.screen.FavouriteScreen
 import com.example.firstjetpackcompose.screen.ProfileScreen
 import com.example.firstjetpackcompose.screen.detail_food.DetailFoodScreen
 import com.example.firstjetpackcompose.screen.home.HomeScreen
+import com.example.firstjetpackcompose.screen.map.TrackingScreen
 import com.example.firstjetpackcompose.ui.theme.FirstJetpackComposeTheme
 import com.example.firstjetpackcompose.viewmodel.ShareViewModel
 
@@ -70,6 +71,7 @@ class MainActivity : ComponentActivity() {
                         composable(BottomNavigationItem.EXTENSION.label) { ExtensionScreen() }
                         composable(BottomNavigationItem.PROFILE.label) { ProfileScreen() }
                         composable("detail_food") { DetailFoodScreen(navController, sharedViewModel) }
+                        composable("tracking") { TrackingScreen(navController) }
                     }
                 }
             }
