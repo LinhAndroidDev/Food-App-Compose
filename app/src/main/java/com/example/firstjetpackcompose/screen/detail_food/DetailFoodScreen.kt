@@ -1,6 +1,5 @@
 package com.example.firstjetpackcompose.screen.detail_food
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -39,6 +38,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.firstjetpackcompose.IconTop
 import com.example.firstjetpackcompose.R
+import com.example.firstjetpackcompose.screen.detail_food.models.DetailFoodModel
 import com.example.firstjetpackcompose.screen.detail_food.models.IngredientModel
 import com.example.firstjetpackcompose.ui.theme.BackGroundCommon
 import com.example.firstjetpackcompose.ui.theme.Gray
@@ -56,13 +56,7 @@ fun DetailFoodScreen(navController: NavController, shareViewModel: ShareViewMode
                 .background(color = BackGroundCommon)
                 .verticalScroll(rememberScrollState())
         ) {
-            Row(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 50.dp)) {
-                IconTop(image = Icons.Filled.ArrowBack, onClick = { navController.popBackStack() })
-                Spacer(modifier = Modifier.weight(1f))
-                IconTop(image = Icons.Outlined.FavoriteBorder, onClick = {})
-                Spacer(modifier = Modifier.size(10.dp))
-                IconTop(image = Icons.Outlined.Share, onClick = {})
-            }
+            AppBarTop(navController = navController)
             Spacer(modifier = Modifier.size(10.dp))
             foodDetail?.let {
                 AsyncImage(
@@ -82,32 +76,8 @@ fun DetailFoodScreen(navController: NavController, shareViewModel: ShareViewMode
                 fontWeight = FontWeight.W500,
                 modifier = Modifier.padding(horizontal = 15.dp)
             )
-            Row(
-                modifier = Modifier.padding(horizontal = 15.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = "${foodDetail?.detail}", fontSize = 12.sp, color = Color.Gray)
-                Text(text = "  •  ", fontSize = 16.sp, color = Gray)
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_star),
-                    modifier = Modifier.size(18.dp),
-                    contentDescription = null,
-                    tint = Green
-                )
-                Text(
-                    text = " 4.8 ",
-                    fontSize = 12.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.W500
-                )
-                Text(text = "(2.2k) ", fontSize = 12.sp, color = Color.Gray)
-                Icon(
-                    imageVector = Icons.Filled.KeyboardArrowRight,
-                    modifier = Modifier.size(17.dp),
-                    contentDescription = "",
-                    tint = Color.Gray
-                )
-            }
+
+            DetailInfoFood(foodDetail = foodDetail)
 
             SelectSizeFood(typeSize = sizeFood.value, onClick = {
                 sizeFood.value = it
@@ -125,34 +95,51 @@ fun DetailFoodScreen(navController: NavController, shareViewModel: ShareViewMode
 
             Spacer(modifier = Modifier.size(120.dp))
         }
-        Row(
-            modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp, bottom = 60.dp)
-                .fillMaxWidth()
-                .align(Alignment.BottomCenter)
-        ) {
-            Row(modifier = Modifier
-                .background(color = Color.White, shape = RoundedCornerShape(50.dp))
-                .border(width = 1.dp, color = Green, shape = RoundedCornerShape(50.dp))
-                .padding(horizontal = 20.dp, vertical = 15.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(imageVector = Icons.Outlined.Delete, tint = Gray, modifier = Modifier.size(23.dp), contentDescription = "")
-                Text(text = "1", fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.W500, modifier = Modifier.padding(horizontal = 10.dp))
-                Icon(imageVector = Icons.Outlined.Add, tint = Green, modifier = Modifier.size(20.dp), contentDescription = "")
-            }
-            Text(
-                "Add to Cart • $${foodDetail?.price}",
-                fontSize = 16.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .padding(start = 10.dp)
-                    .background(color = Green, shape = RoundedCornerShape(50.dp))
-                    .weight(1f)
-                    .padding(vertical = 15.dp, horizontal = 20.dp),
-                textAlign = TextAlign.Center
-            )
+
+        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
+            FooterAddToCart(foodDetail = foodDetail)
         }
+    }
+}
+
+@Composable
+private fun AppBarTop(navController: NavController) {
+    Row(modifier = Modifier.padding(start = 15.dp, end = 15.dp, top = 50.dp)) {
+        IconTop(image = Icons.Filled.ArrowBack, onClick = { navController.popBackStack() })
+        Spacer(modifier = Modifier.weight(1f))
+        IconTop(image = Icons.Outlined.FavoriteBorder, onClick = {})
+        Spacer(modifier = Modifier.size(10.dp))
+        IconTop(image = Icons.Outlined.Share, onClick = {})
+    }
+}
+
+@Composable
+private fun DetailInfoFood(foodDetail: DetailFoodModel?) {
+    Row(
+        modifier = Modifier.padding(horizontal = 15.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = "${foodDetail?.detail}", fontSize = 12.sp, color = Color.Gray)
+        Text(text = "  •  ", fontSize = 16.sp, color = Gray)
+        Icon(
+            painter = painterResource(id = R.drawable.ic_star),
+            modifier = Modifier.size(18.dp),
+            contentDescription = null,
+            tint = Green
+        )
+        Text(
+            text = " 4.8 ",
+            fontSize = 12.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.W500
+        )
+        Text(text = "(2.2k) ", fontSize = 12.sp, color = Color.Gray)
+        Icon(
+            imageVector = Icons.Filled.KeyboardArrowRight,
+            modifier = Modifier.size(17.dp),
+            contentDescription = "",
+            tint = Color.Gray
+        )
     }
 }
 
@@ -202,11 +189,41 @@ private fun ListIngredient() {
     Column {
         list.value.forEachIndexed { index, ingredient ->
             ItemIngredientView(ingredientModel = ingredient) { isChecked ->
-                Log.e("ItemIngredientView", "isChecked: $isChecked")
                 list.value = list.value.toMutableList().apply {
                     this[index] = this[index].copy(isSelected = isChecked)
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun FooterAddToCart(foodDetail: DetailFoodModel?) {
+    Row(
+        modifier = Modifier
+            .padding(start = 15.dp, end = 15.dp, bottom = 60.dp)
+            .fillMaxWidth()
+    ) {
+        Row(modifier = Modifier
+            .background(color = Color.White, shape = RoundedCornerShape(50.dp))
+            .border(width = 1.dp, color = Green, shape = RoundedCornerShape(50.dp))
+            .padding(horizontal = 20.dp, vertical = 15.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(imageVector = Icons.Outlined.Delete, tint = Gray, modifier = Modifier.size(23.dp), contentDescription = "")
+            Text(text = "1", fontSize = 12.sp, color = Color.Black, fontWeight = FontWeight.W500, modifier = Modifier.padding(horizontal = 10.dp))
+            Icon(imageVector = Icons.Outlined.Add, tint = Green, modifier = Modifier.size(20.dp), contentDescription = "")
+        }
+        Text(
+            "Add to Cart • $${foodDetail?.price}",
+            fontSize = 16.sp,
+            color = Color.White,
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .background(color = Green, shape = RoundedCornerShape(50.dp))
+                .weight(1f)
+                .padding(vertical = 15.dp, horizontal = 20.dp),
+            textAlign = TextAlign.Center
+        )
     }
 }

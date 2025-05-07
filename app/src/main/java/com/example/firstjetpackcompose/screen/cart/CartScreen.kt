@@ -1,6 +1,7 @@
 package com.example.firstjetpackcompose.screen.cart
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +19,8 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -80,7 +83,8 @@ fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
             3
         )
     )
-    val totalPrice = carts.sumOf { (it.price * it.quantity).toDouble() }.toFloat()
+    val list = remember { mutableStateOf(carts) }
+    val totalPrice = list.value.sumOf { (it.price * it.quantity).toDouble() }.toFloat()
     val delivery = 5f
     Box {
         Column(
@@ -109,10 +113,18 @@ fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
             Spacer(modifier = Modifier.padding(20.dp))
 
             Column {
-                carts.forEach { cart ->
+                list.value.forEachIndexed { index, cart ->
                     ItemCartView(cartModel = cart, onClick = { cartModel ->
                         shareViewModel.setSelectedFood(cartModel.convertToDetailFoodModel())
                         navController.navigate("detail_food")
+                    }, onAdd = {
+                        list.value = list.value.toMutableList().apply {
+                            this[index] = this[index].copy(quantity = it)
+                        }
+                    }, onMinus = {
+                        list.value = list.value.toMutableList().apply {
+                            this[index] = this[index].copy(quantity = it)
+                        }
                     })
                 }
             }
@@ -132,6 +144,9 @@ fun CartScreen(navController: NavController, shareViewModel: ShareViewModel) {
                 .padding(start = 15.dp, end = 15.dp, bottom = 120.dp)
                 .fillMaxWidth()
                 .background(color = Green, shape = RoundedCornerShape(50.dp))
+                .clickable {
+
+                }
                 .padding(vertical = 15.dp)
                 .align(Alignment.BottomCenter),
             textAlign = TextAlign.Center

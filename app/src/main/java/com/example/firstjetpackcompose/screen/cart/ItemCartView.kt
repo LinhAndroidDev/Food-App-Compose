@@ -27,7 +27,7 @@ import com.example.firstjetpackcompose.screen.cart.models.CartModel
 import com.example.firstjetpackcompose.ui.theme.Green
 
 @Composable
-fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit) {
+fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit, onAdd: (Int) -> Unit, onMinus: (Int) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -69,6 +69,11 @@ fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit) {
                         .size(25.dp)
                         .background(color = Green, shape = RoundedCornerShape(5.dp))
                         .padding(2.dp)
+                        .clickable {
+                            if (cartModel.quantity > 1) {
+                                onMinus.invoke(cartModel.quantity - 1)
+                            }
+                        }
                 )
                 Text(
                     text = "${cartModel.quantity}",
@@ -85,6 +90,9 @@ fun ItemCartView(cartModel: CartModel, onClick: (CartModel) -> Unit) {
                         .size(25.dp)
                         .background(color = Green, shape = RoundedCornerShape(5.dp))
                         .padding(2.dp)
+                        .clickable {
+                            onAdd.invoke(cartModel.quantity + 1)
+                        }
                 )
             }
         }
