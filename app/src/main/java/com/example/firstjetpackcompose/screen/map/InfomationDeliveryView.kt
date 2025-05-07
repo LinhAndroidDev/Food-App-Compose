@@ -1,6 +1,7 @@
 package com.example.firstjetpackcompose.screen.map
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -28,7 +28,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.firstjetpackcompose.R
-import com.example.firstjetpackcompose.screen.common.RadioCommon
 import com.example.firstjetpackcompose.ui.theme.BackGroundCommon
 import com.example.firstjetpackcompose.ui.theme.Gray
 import com.example.firstjetpackcompose.ui.theme.Green
@@ -129,7 +128,7 @@ fun InformationDeliveryView() {
 
                 Spacer(modifier = Modifier.size(15.dp))
 
-                Column {
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = "John Smith",
                         fontSize = 14.sp,
@@ -153,15 +152,39 @@ fun InformationDeliveryView() {
                         )
                     }
                 }
+
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_message),
+                    contentDescription = "",
+                    tint = Green,
+                    modifier = Modifier
+                        .border(1.dp, color = Green, shape = CircleShape)
+                        .clip(CircleShape)
+                        .padding(10.dp)
+                        .size(25.dp)
+                )
+
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_call),
+                    contentDescription = "",
+                    tint = Color.White,
+                    modifier = Modifier
+                        .padding(start = 15.dp, end = 5.dp)
+                        .background(
+                            color = Green,
+                            shape = CircleShape
+                        )
+                        .clip(CircleShape)
+                        .padding(10.dp)
+                        .size(25.dp)
+                )
             }
 
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .fillMaxWidth()
-                    .background(color = Color.White, shape = RoundedCornerShape(25.dp))
             ) {
-
+                OrderTakingProcessView()
             }
         }
     }
